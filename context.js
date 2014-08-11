@@ -74,7 +74,9 @@ var context = context || (function () {
 						eventAction = data[i].action;
 					$sub.find('a').attr('id', actionID);
 					$('#' + actionID).addClass('context-event');
-					$(document).on('click', '#' + actionID, eventAction);
+					$(document).on('click', '#' + actionID, function(clicked){
+						eventAction($(options.clicked));
+					});
 				}
 				$menu.append($sub);
 				if (typeof data[i].subMenu != 'undefined') {
@@ -97,6 +99,7 @@ var context = context || (function () {
 			
 		$('body').append($menu);
 		
+		options.clicked = this;
 		
 		$(document).on('contextmenu', selector, function (e) {
 			e.preventDefault();
